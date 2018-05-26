@@ -3,15 +3,15 @@
   "version": "1.0.0",
   "roles": [
     {
-      "name": "Increment the counter",
-      "id": "INCREMENT_ROLE",
+      "name": "Give access role",
+      "id": "ALLOW_ROLE",
       "params": []
     },
     {
-      "name": "Decrement the counter",
-      "id": "DECREMENT_ROLE",
+      "name": "Revoke access role",
+      "id": "REVOKE_ROLE",
       "params": []
     }
   ],
-  "path": "contracts/CounterApp.sol"
+  "path": "contracts/Bouncer.sol"
 }

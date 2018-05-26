@@ -1,11 +1,11 @@
 import React from 'react'
 import {
-  AragonApp,
-  AppBar,
-  Button,
-  Text,
+    AragonApp,
+    AppBar,
+    Button,
+    Text,
 
-  observe
+    observe
 } from '@aragon/ui'
 import Aragon, { providers } from '@aragon/client'
 import styled from 'styled-components'
@@ -14,11 +14,30 @@ const AppContainer = styled(AragonApp)`
   padding: 30px;
 `
 export default class App extends React.Component {
+  constructor(props) {
+      super(props);
+      this.state = {
+          newAddress: ""
+      };
+      this.handleNewAddress = this.handleNewAddress.bind(this);
+      this.handleNewAddressSubmit = this.handleNewAddressSubmit.bind(this);
+  }
+
+
+  handleNewAddress(event) {
+    this.setState({newAddress: event.target.value});
+  }
+
+  handleNewAddressSubmit(event) {
+    this.props.app.giveAccess(this.state.newAddress);
+  }
+
   render () {
     return (
       <AppContainer>
         <h1 class="app-title">Bouncer</h1>
         <h2 class="section-title">DAO Members physical access</h2>
+        <ObservedCount observable={this.props.observable} />
         <table className="table">
           <thead>
             <th>Address</th>
@@ -45,6 +64,10 @@ export default class App extends React.Component {
             </tr>
           </tbody>
         </table>
+        <h2>Add New Address</h2>
+        <input type="text" value={this.state.newAddress} onChange={this.handleNewAddress} />
+        <button onClick={ this.handleNewAddressSubmit }>Add New Address</button>
+
       </AppContainer>
     )
   }
@@ -56,6 +79,7 @@ export default class App extends React.Component {
       }
   }
 }
+
 
 const ObservedCount = observe(
     (state$) => state$,
