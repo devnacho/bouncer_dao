@@ -8,16 +8,17 @@ contract Bouncer is AragonApp {
     // Array with all address ids, used for enumeration
     address[] public allowedAddresses;
 
+    // Mapping from address to position in the allowedAddresses array
+    mapping(address => uint256) internal allowedAddressesIndex;
+
     // Events
     event AccessAllowed(address allower, address allowedAddress);
-    event AccessRevoked(address allower, address revokedAddress);
+    event AccessRevoked(address revoker, address revokedAddress);
 
     // ACL
     bytes32 constant public ALLOW_ROLE = keccak256("ALLOW_ROLE");
     bytes32 constant public REVOKE_ROLE = keccak256("REVOKE_ROLE");
 
-    // Mapping from address to position in the allowedAddresses array
-    mapping(address => uint256) internal allowedAddressesIndex;
 
     function constructor() public {
     }
@@ -37,7 +38,7 @@ contract Bouncer is AragonApp {
         allowedAddressesIndex[incomingPerson] = allowedAddresses.length;
         allowedAddresses.push(incomingPerson);
         // Emit event
-        emit AccessAllowed(msg.sender, incomingPerson)
+        emit AccessAllowed(msg.sender, incomingPerson);
     }
 
     function revokeAccess(address incomingPerson) auth(REVOKE_ROLE) external {
@@ -57,7 +58,7 @@ contract Bouncer is AragonApp {
         allowedAddressesIndex[lastAddress] = addressIndex;
 
         // Emit event
-        emit AccessRevoked(msg.sender, incomingPerson)
+        emit AccessRevoked(msg.sender, incomingPerson);
     }
 
 }
