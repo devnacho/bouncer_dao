@@ -1,8 +1,10 @@
 pragma solidity ^0.4.21;
 
-contract Bouncer {
+import "@aragon/os/contracts/apps/AragonApp.sol";
+
+contract Bouncer is AragonApp {
     mapping(address => bool) public accessAllowance;
-    address public owner;
+
     // Array with all address ids, used for enumeration
     address[] public allowedAddresses;
 
@@ -10,17 +12,15 @@ contract Bouncer {
     event AccessAllowed(address allower, address allowedAddress);
     event AccessRevoked(address allower, address revokedAddress);
 
+    // ACL
+    bytes32 constant public ALLOW_ROLE = keccak256("ALLOW_ROLE");
+    bytes32 constant public REVOKE_ROLE = keccak256("REVOKE_ROLE");
+
     // Mapping from address to position in the allowedAddresses array
     mapping(address => uint256) internal allowedAddressesIndex;
 
     function constructor() public {
-        owner = msg.sender;
     }
-
-    modifier onlyAllowed() {
-        require(msg.sender == owner);
-    _;
-  }
 
     function checkAccess(address incomingPerson) public view returns (bool) {
         return accessAllowance[incomingPerson];
@@ -30,7 +30,7 @@ contract Bouncer {
         return allowedAddresses.length;
   }
 
-    function giveAccess(address incomingPerson) public onlyAllowed {
+    function giveAccess(address incomingPerson) auth(ALLOW_ROLE) external {
         // Change mapping to allow access
         accessAllowance[incomingPerson] = true;
         // Add new address to allowedAddresses array
@@ -40,7 +40,7 @@ contract Bouncer {
         emit AccessAllowed(msg.sender, incomingPerson)
     }
 
-    function revokeAccess(address incomingPerson) public onlyAllowed {
+    function revokeAccess(address incomingPerson) auth(REVOKE_ROLE) external {
         // Change mapping to revoke access
         accessAllowance[incomingPerson] = false;
 
