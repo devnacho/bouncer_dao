@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { NFC, Ndef } from '@ionic-native/nfc';
+
+import { Observable } from 'rxjs/Observable';
+
 /*
   Generated class for the NfcProvider provider.
 
@@ -9,13 +12,14 @@ import { NFC, Ndef } from '@ionic-native/nfc';
   @Injectable()
   export class NfcProvider {
 
+
+  	public hasStarted:boolean=false;
   	constructor(private nfc: NFC, private ndef: Ndef) {
   		console.log('Hello NfcProvider Provider');
   	}
 
   	checkNFCEnabled(): Promise<any>{
   		return this.nfc.enabled();
-
   	}
 
   	showSettings(): Promise<any>{
@@ -23,18 +27,31 @@ import { NFC, Ndef } from '@ionic-native/nfc';
   	}
 
 
-  	listen(): Promise<any>{
+  	start(): Observable<any>{
+  		  	let that=this;
+  		  	return that.nfc.addNdefListener();
+  	// 	return Observable.create(observer => {
+   //  		that.nfc.addNdefListener(() => {
+		 //    	console.log('successfully attached ndef listener');
+		 //    	observer.next(this);
+		 //    }, (err) => {
+		 //    	observer.error(err);
+		 //    });
+  	// });
+  	}
+
+  	listen(): Observable<any>{
 
   	    // alert('starting NFC');
     	// this.nfc.addTagDiscoveredListener(() => {
     	let that=this;
-    	return new Promise(function(res,rej){
+    	  return Observable.create(observer => {
     		that.nfc.addNdefListener(() => {
-		    	// that.nfcStarted=true;
-		    	alert('NFC Started!');
+    			that.hasStarted=true;
 		    	console.log('successfully attached ndef listener');
+		    	// _onStart();
 		    }, (err) => {
-		    	rej(err);
+		    	observer.error(err);
 		    }).subscribe((event) => {
 
 		    	console.log('received ndef message. the tag contains: ', event.tag);
@@ -43,13 +60,13 @@ import { NFC, Ndef } from '@ionic-native/nfc';
 		    	let payload = event.tag.ndefMessage[0]["payload"];
 		    	let stringPayload = that.nfc.bytesToString(payload);
 
-		    	res(stringPayload);
+		    	observer.next(stringPayload);
 		    });
 		});
 
 
-
+}
     }
 
 
-}
+

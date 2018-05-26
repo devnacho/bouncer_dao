@@ -87,4 +87,5 @@
     </plugin>
     <plugin name="phonegap-nfc" spec="^0.7.3" />
     <allow-navigation href="http://172.16.8.176:8100" />
+    <allow-navigation href="http://172.16.8.176:8101" />
 </widget>

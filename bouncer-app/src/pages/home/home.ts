@@ -12,7 +12,7 @@ import EthCrypto from 'eth-crypto';
 export class HomePage {
 
 	nfcEnabled: boolean= false;
-	nfcStarted: boolean = false;
+  nfcStarted:boolean=false;
   identity: any;
   constructor(public navCtrl: NavController, private nfc: NfcProvider) {
   	this.init();
@@ -24,19 +24,24 @@ export class HomePage {
     // this.createWallet();
     // this.testSign();
 
+    this.checkStarted();
+
+  }
+
+  checkStarted(){
+    setInterval(()=>this.nfcStarted=this.nfc.hasStarted,1000);
   }
 
 
   createWallet(){
-     this.identity = EthCrypto.createIdentity();
-
+    this.identity = EthCrypto.createIdentity();
   }
 
   checkNFCEnabled(){
     let that=this;
     this.nfc.checkNFCEnabled()
     .then((data)=>this.nfcEnabled=true)
-  	.catch((err)=>{
+    .catch((err)=>{
 		// alert("error"+err);
 		if(err=='NFC_DISABLED'){
 			alert("please enable NFC");
@@ -45,28 +50,28 @@ export class HomePage {
 		else if(err=='cordova_not_available'){
 			alert("NFC not available on your device");
 		}
-  	});
+  });
   }
 
 
   startNFC(){
+    
   	if(!this.nfcEnabled)return this.checkNFCEnabled();
     this.nfc.listen()
-    .then((data)=>{
-        alert(data);
-    })
-    .catch((err)=>{
-      alert('err'+err);
+    .subscribe((data)=>{
+
+      alert(data);
     })
   }
 
+ 
 
-   testSign() {
+  testSign() {
     const message = 'foobar';
     const messageHash = EthCrypto.hash.keccak256(message);
     const signature = EthCrypto.sign(this.identity.privateKey, // privateKey
       messageHash // hash of message
-    );
+      );
 
     console.log(signature)
 

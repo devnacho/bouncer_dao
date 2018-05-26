@@ -18,5 +18,5 @@
     <!-- If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way. -->
   </p>
 
-  <button ion-button color="primary" [disabled]="nfcStarted" (click) ="startNFC()">{{!nfcStarted ? 'Start NFC' : 'NFC Started'}}</button>
+  <button ion-button color="primary" [disabled]="nfc.hasStarted" (click) ="startNFC()">{{!nfc.hasStarted ? 'Start NFC' : 'NFC Started'}}</button>
 </ion-content>  
