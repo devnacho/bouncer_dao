@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { NfcProvider } from '../../providers/nfc/nfc';
 
-import { NFC, Ndef } from '@ionic-native/nfc';
+// import { NFC, Ndef } from '@ionic-native/nfc';
 import EthCrypto from 'eth-crypto';
 
 @Component({
@@ -14,7 +14,7 @@ export class HomePage {
 	nfcEnabled: boolean= false;
 	nfcStarted: boolean = false;
   identity: any;
-  constructor(public navCtrl: NavController, private nfcp: NfcProvider) {
+  constructor(public navCtrl: NavController, private nfc: NfcProvider) {
   	this.init();
 
   }
@@ -34,7 +34,7 @@ export class HomePage {
 
   checkNFCEnabled(){
     let that=this;
-    this.nfcp.checkNFCEnabled()
+    this.nfc.checkNFCEnabled()
     .then((data)=>this.nfcEnabled=true)
   	.catch((err)=>{
 		// alert("error"+err);
@@ -51,16 +51,13 @@ export class HomePage {
 
   startNFC(){
   	if(!this.nfcEnabled)return this.checkNFCEnabled();
-    this.nfcp.listen()
+    this.nfc.listen()
     .then((data)=>{
         alert(data);
     })
     .catch((err)=>{
       alert('err'+err);
     })
-
-
-
   }
 
 

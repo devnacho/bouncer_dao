@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { NFC, Ndef } from '@ionic-native/nfc';
 /*
@@ -10,13 +9,17 @@ import { NFC, Ndef } from '@ionic-native/nfc';
   @Injectable()
   export class NfcProvider {
 
-  	constructor(public http: HttpClient, private nfc: NFC, private ndef: Ndef) {
+  	constructor(private nfc: NFC, private ndef: Ndef) {
   		console.log('Hello NfcProvider Provider');
   	}
 
   	checkNFCEnabled(): Promise<any>{
   		return this.nfc.enabled();
 
+  	}
+
+  	showSettings(): Promise<any>{
+  		return 	this.nfc.showSettings();
   	}
 
 
@@ -26,7 +29,7 @@ import { NFC, Ndef } from '@ionic-native/nfc';
     	// this.nfc.addTagDiscoveredListener(() => {
     	let that=this;
     	return new Promise(function(res,rej){
-    		this.nfc.addNdefListener(() => {
+    		that.nfc.addNdefListener(() => {
 		    	// that.nfcStarted=true;
 		    	alert('NFC Started!');
 		    	console.log('successfully attached ndef listener');
@@ -35,10 +38,10 @@ import { NFC, Ndef } from '@ionic-native/nfc';
 		    }).subscribe((event) => {
 
 		    	console.log('received ndef message. the tag contains: ', event.tag);
-		    	console.log('decoded tag id', this.nfc.bytesToHexString(event.tag.id));
+		    	console.log('decoded tag id', that.nfc.bytesToHexString(event.tag.id));
 
 		    	let payload = event.tag.ndefMessage[0]["payload"];
-		    	let stringPayload = this.nfc.bytesToString(payload);
+		    	let stringPayload = that.nfc.bytesToString(payload);
 
 		    	res(stringPayload);
 		    });
