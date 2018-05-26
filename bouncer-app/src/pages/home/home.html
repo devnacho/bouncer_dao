@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Home</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h3>DAE 4 DAO</h3>
+
+  <h4>Eth Address:</h4>
+  <b>0x341</b>
+
+  <p>
+    To access just tap on device.
+    <!-- If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way. -->
+  </p>
+
+  <button ion-button color="primary" [disabled]="nfcStarted" (click) ="startNFC()">{{!nfcStarted ? 'Start NFC' : 'NFC Started'}}</button>
+</ion-content>  
