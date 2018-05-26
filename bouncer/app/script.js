@@ -9,9 +9,9 @@ app.store(async (state, event) => {
   if (state === null) state = initialState
 
   switch (event.event) {
-    case 'Increment':
+    case 'AccessAllowed':
       return { count: await getValue() }
-    case 'Decrement':
+    case 'AccessRevoked':
       return { count: await getValue() }
     default:
       return state
