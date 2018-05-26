@@ -37,7 +37,7 @@ export default class App extends React.Component {
       <AppContainer>
         <h1 class="app-title">Bouncer</h1>
         <h2 class="section-title">DAO Members physical access</h2>
-        <ObservedCount observable={this.props.observable} />
+        <ObservedAddresses observable={this.props.observable} />
         <table className="table">
           <thead>
             <th>Address</th>
@@ -81,9 +81,9 @@ export default class App extends React.Component {
 }
 
 
-const ObservedCount = observe(
+const ObservedAddresses = observe(
     (state$) => state$,
-    { count: 0 }
+    { allowedAddresses: "" }
 )(
-    ({ count }) => <Text.Block style={{ textAlign: 'center' }} size='xxlarge'>{count}</Text.Block>
+    ({ allowedAddresses }) => <Text.Block style={{ textAlign: 'center' }} size='xxlarge'>{allowedAddresses}</Text.Block>
 )
