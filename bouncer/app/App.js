@@ -1,6 +1,7 @@
 import React from 'react'
 import {
   AragonApp,
+  AppBar,
   Button,
   Text,
 
@@ -21,29 +22,38 @@ export default class App extends React.Component {
         <table className="table">
           <thead>
             <th>Address</th>
-            <th>Has Access</th>
+            <th>Access</th>
           </thead>
           <tbody>
             <tr>
               <td>Hardcoded Address</td>
-              <td>true</td>
+              <td>
+                { this.renderButton(true) }
+              </td>
             </tr>
             <tr>
               <td>hardcoded address 2</td>
-              <td>false</td>
+              <td>
+                { this.renderButton(false) }
+              </td>
             </tr>
             <tr>
               <td>Hardcoded Address 3</td>
-              <td>true</td>
+              <td>
+                { this.renderButton(true) }
+              </td>
             </tr>
           </tbody>
         </table>
-
-        <ObservedCount observable={this.props.observable} />
-        <Button onClick={() => this.props.app.decrement(1)}>Decrement</Button>
-        <Button onClick={() => this.props.app.increment(1)}>Increment</Button>
       </AppContainer>
     )
+  }
+  renderButton(hasAccess) {
+      if(!hasAccess){
+          return <Button mode="secondary">Give Access</Button>
+      } else {
+          return <Button mode="outline">Revoke Access</Button>
+      }
   }
 }
 
