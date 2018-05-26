@@ -24,6 +24,10 @@ contract Bouncer is AragonApp {
        value = 0;
     }
 
+    function getAllAllowedAddresses() public view returns (address[]) {
+        return allowedAddresses;
+    }
+
     function checkAccess(address incomingPerson) public view returns (bool) {
         return accessAllowance[incomingPerson];
     }
