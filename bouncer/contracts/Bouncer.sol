@@ -1,4 +1,4 @@
-pragma solidity ^0.4.21;
+pragma solidity ^0.4.18;
 
 import "@aragon/os/contracts/apps/AragonApp.sol";
 
@@ -20,9 +20,6 @@ contract Bouncer is AragonApp {
     bytes32 constant public REVOKE_ROLE = keccak256("REVOKE_ROLE");
 
 
-    function constructor() public {
-    }
-
     function checkAccess(address incomingPerson) public view returns (bool) {
         return accessAllowance[incomingPerson];
     }
@@ -38,7 +35,7 @@ contract Bouncer is AragonApp {
         allowedAddressesIndex[incomingPerson] = allowedAddresses.length;
         allowedAddresses.push(incomingPerson);
         // Emit event
-        emit AccessAllowed(msg.sender, incomingPerson);
+        AccessAllowed(msg.sender, incomingPerson);
     }
 
     function revokeAccess(address incomingPerson) auth(REVOKE_ROLE) external {
@@ -58,7 +55,7 @@ contract Bouncer is AragonApp {
         allowedAddressesIndex[lastAddress] = addressIndex;
 
         // Emit event
-        emit AccessRevoked(msg.sender, incomingPerson);
+        AccessRevoked(msg.sender, incomingPerson);
     }
 
 }
