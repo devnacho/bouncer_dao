@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Electron Hello World!</title>
+  </head>
+  <body>
+    <h1>Electron Hello World!</h1>
+    We are using node <script>document.write(process.versions.node)</script>,
+    Chromium <script>document.write(process.versions.chrome)</script>,
+    and Electron <script>document.write(process.versions.electron)</script>.
+
+    <p id="status">Waiting device...</p>
+
+    <script type="text/javascript">
+      const {ipcRenderer} = require('electron')
+      const $ = require('jQuery');
+
+      let interval;
+      $(document).ready(function() {
+        interval = setInterval(function(){
+          ipcRenderer.send('asynchronous-message', 'ping');
+        }, 1000);
+      })
+
+      ipcRenderer.on('asynchronous-reply', (event, arg) => {
+        console.log('Msg response received: ' + arg.allowed)
+        clearInterval(interval)
+
+        // update UI
+        if (arg.allowed) {
+          statusMsg = "You are in!"
+        } else {
+          statusMsg = "Sorry, you are bounced ;'("
+        }
+        $("#status").text(statusMsg)
+      })
+    </script>
+  </body>
+</html>
