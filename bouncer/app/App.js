@@ -21,6 +21,7 @@ export default class App extends React.Component {
       };
       this.handleNewAddress = this.handleNewAddress.bind(this);
       this.handleNewAddressSubmit = this.handleNewAddressSubmit.bind(this);
+      this.handleRevokeAccess = this.handleNewAddressSubmit.bind(this);
   }
 
 
@@ -32,43 +33,30 @@ export default class App extends React.Component {
     this.props.app.giveAccess(this.state.newAddress);
   }
 
+  handleRevokeAccess(addressToRevoke) {
+    console.log("revoke", addressToRevoke);
+    this.props.app.giveAccess(addressToRevoke);
+  }
+
   render () {
     return (
-      <AppContainer>
-        <h1 class="app-title">Bouncer</h1>
-        <h2 class="section-title">DAO Members physical access</h2>
-        <ObservedAddresses observable={this.props.observable} />
-        <table className="table">
-          <thead>
-            <th>Address</th>
-            <th>Access</th>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Hardcoded Address</td>
-              <td>
-                { this.renderButton(true) }
-              </td>
-            </tr>
-            <tr>
-              <td>hardcoded address 2</td>
-              <td>
-                { this.renderButton(false) }
-              </td>
-            </tr>
-            <tr>
-              <td>Hardcoded Address 3</td>
-              <td>
-                { this.renderButton(true) }
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <h2>Add New Address</h2>
-        <input type="text" value={this.state.newAddress} onChange={this.handleNewAddress} />
-        <button onClick={ this.handleNewAddressSubmit }>Add New Address</button>
+        <AppContainer>
+            <h1 class="app-title">Bouncer</h1>
+            <h2 class="section-title">DAO Members physical access</h2>
+            <table className="table">
+                <thead>
+                    <th>Address</th>
+                    <th>Access</th>
+                </thead>
+                <tbody>
+                    <ObservedAddresses observable={this.props.observable} />
+                </tbody>
+            </table>
+            <h2>Add New Address</h2>
+            <input type="text" value={this.state.newAddress} onChange={this.handleNewAddress} />
+            <button onClick={ this.handleNewAddressSubmit }>Add New Address</button>
 
-      </AppContainer>
+        </AppContainer>
     )
   }
   renderButton(hasAccess) {
@@ -83,7 +71,18 @@ export default class App extends React.Component {
 
 const ObservedAddresses = observe(
     (state$) => state$,
-    { allowedAddresses: "" }
+    { allowedAddresses: [] }
 )(
-    ({ allowedAddresses }) => <Text.Block style={{ textAlign: 'center' }} size='xxlarge'>{allowedAddresses}</Text.Block>
+    ({ allowedAddresses }) =>
+
+        allowedAddresses.map((address, i) =>
+            <tr>
+                <td>
+                    { address }
+                </td>
+                <td>
+                    <Button onClick={() => this.handleRevokeAccess(address) } mode="outline">Revoke Access</Button>
+                </td>
+            </tr>
+        )
 )
