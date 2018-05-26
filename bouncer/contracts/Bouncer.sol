@@ -33,6 +33,9 @@ contract Bouncer is AragonApp {
   }
 
     function giveAccess(address incomingPerson) auth(ALLOW_ROLE) external {
+        // Require that the address is not allowed
+        require(accessAllowance[incomingPerson] == false);
+
         // Change mapping to allow access
         accessAllowance[incomingPerson] = true;
         // Add new address to allowedAddresses array
@@ -45,6 +48,9 @@ contract Bouncer is AragonApp {
     }
 
     function revokeAccess(address incomingPerson) auth(REVOKE_ROLE) external {
+        // Require that the address is not allowed
+        require(accessAllowance[incomingPerson] == true);
+
         // Change mapping to revoke access
         accessAllowance[incomingPerson] = false;
 
