@@ -15,6 +15,7 @@ const AppContainer = styled(AragonApp)`
 `
 export default class App extends React.Component {
   render () {
+    console.log("PROPS", this.props);
     return (
       <AppContainer>
         <h1 class="app-title">Bouncer</h1>
@@ -56,10 +57,3 @@ export default class App extends React.Component {
       }
   }
 }
-
-const ObservedCount = observe(
-    (state$) => state$,
-    { count: 0 }
-)(
-    ({ count }) => <Text.Block style={{ textAlign: 'center' }} size='xxlarge'>{count}</Text.Block>
-)
