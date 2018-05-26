@@ -3,7 +3,6 @@ pragma solidity ^0.4.18;
 import "@aragon/os/contracts/apps/AragonApp.sol";
 
 contract Bouncer is AragonApp {
-    int public value;
     mapping(address => bool) public accessAllowance;
 
     // Array with all address ids, used for enumeration
@@ -19,10 +18,6 @@ contract Bouncer is AragonApp {
     // ACL
     bytes32 constant public ALLOW_ROLE = keccak256("ALLOW_ROLE");
     bytes32 constant public REVOKE_ROLE = keccak256("REVOKE_ROLE");
-
-    function Bouncer() public {
-       value = 0;
-    }
 
     function getAllAllowedAddresses() public view returns (address[]) {
         return allowedAddresses;
@@ -46,7 +41,6 @@ contract Bouncer is AragonApp {
         allowedAddressesIndex[incomingPerson] = allowedAddresses.length;
         allowedAddresses.push(incomingPerson);
 
-        value += 1;
         // Emit event
         AccessAllowed(msg.sender, incomingPerson);
     }
@@ -69,8 +63,6 @@ contract Bouncer is AragonApp {
 
         allowedAddressesIndex[incomingPerson] = 0;
         allowedAddressesIndex[lastAddress] = addressIndex;
-
-        value -= 1;
 
         // Emit event
         AccessRevoked(msg.sender, incomingPerson);
