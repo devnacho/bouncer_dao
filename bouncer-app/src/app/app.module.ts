@@ -11,6 +11,7 @@ import { ListPage } from '../pages/list/list';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import {HCE} from '../providers/hce/hce';
+import { NfcProvider } from '../providers/nfc/nfc';
 
 // import * as HCE from '../../plugins/cordova-plugin-hce';
 
@@ -38,7 +39,8 @@ import {HCE} from '../providers/hce/hce';
     HCE,
     NFC,
     Ndef,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    NfcProvider
   ]
 })
 export class AppModule {}
