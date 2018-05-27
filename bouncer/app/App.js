@@ -31,6 +31,7 @@ class App extends React.Component {
 
   handleNewAddressSubmit(event) {
     this.props.app.giveAccess(this.state.newAddress);
+    this.setState({newAddress: ""});
   }
 
   handleRevokeAccess(addressToRevoke) {
