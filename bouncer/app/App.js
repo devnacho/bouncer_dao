@@ -4,7 +4,6 @@ import {
     AppBar,
     Button,
     Text,
-
     observe
 } from '@aragon/ui'
 import Aragon, { providers } from '@aragon/client'
@@ -49,7 +48,7 @@ export default class App extends React.Component {
                     <th>Access</th>
                 </thead>
                 <tbody>
-                    <ObservedAddresses foo="bar" observable={this.props.observable} />
+                    <ObservedAddresses observable={this.props.observable} />
                 </tbody>
             </table>
             <h2>Add New Address</h2>
@@ -72,13 +71,12 @@ export default class App extends React.Component {
 const ObservedAddresses = observe(
     (state$) => state$,
     { allowedAddresses: [] }
-)(
+  )(
     ({ allowedAddresses }) =>
 
         allowedAddresses.map((address, i) =>
             <tr>
                 <td>
-                    { this.props.foo }
                     { address }
                 </td>
                 <td>

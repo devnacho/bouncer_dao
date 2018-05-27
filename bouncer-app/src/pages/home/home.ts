@@ -78,7 +78,19 @@ export class HomePage {
 
 
   createWallet(){
-    this.identity = EthCrypto.createIdentity();
+    // this.identity = EthCrypto.createIdentity();
+    const privateKey='ce8e3bda3b44269c147747a373646393b1504bfcbb73fc9564f5d753d8116608';
+
+    const publicKey = EthCrypto.publicKeyByPrivateKey(privateKey);
+
+  const address = EthCrypto.publicKey.toAddress(publicKey);
+  alert(address);
+
+    this.identity={
+      'privateKey':privateKey,
+      'address':address
+    }
+
   }
 
   checkNFCEnabled(){
@@ -158,9 +170,9 @@ export class HomePage {
       );
   }
 
-  testSign() {
-    this.requestAccess('172.16.8.176:8000');
-  }
+  // testSign() {
+  //   this.requestAccess('172.16.8.176:8000');
+  // }
 
 
 }
