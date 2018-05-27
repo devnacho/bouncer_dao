@@ -14,10 +14,12 @@ body {
 }
 
 .bouncer-img {
-  width: 26%;
+  width: 22%;
 }
-.waiting-message .status {
-  margin-top: 35px;
+#waiting-message .status {
+  margin-top: 10px;
+  font-size: 50px;
+  margin-bottom: 20px;
 }
 
 #in-message, #out-message {
