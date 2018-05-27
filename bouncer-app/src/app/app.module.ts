@@ -3,6 +3,7 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule,LoadingController } from 'ionic-angular';
 import { HttpClientModule } from '@angular/common/http';
 
+
 import { NFC, Ndef } from '@ionic-native/nfc';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
