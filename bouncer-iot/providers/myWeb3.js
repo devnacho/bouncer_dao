@@ -24,7 +24,7 @@ var MyWeb3 = {
 		var providers = ethers.providers;
 
 		// Connect to a local Parity instance
-		var provider = new providers.JsonRpcProvider('http://d4b08598.ngrok.io', 'testnet');
+		var provider = new providers.JsonRpcProvider(NODE_ADDR, 'testnet');
 		// var Eth = require('ethjs')
 		provider.getBlockNumber().then(function(blockNumber) {
 		    console.log("Current block number from myWeb3: " + blockNumber);

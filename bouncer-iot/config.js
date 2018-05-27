@@ -1,5 +1,5 @@
 const config ={
-	"CONTRACT_ADDR":"0x60FB9a848482b5cc09013474f01bcD2ca1D138A5",
+	"CONTRACT_ADDR":"0xED0248ffF9eA9E7Be0e4065fdc3e9DC8D5E5F41e",
 	"NODE_ADDR": "http://d4b08598.ngrok.io",	
 }
 

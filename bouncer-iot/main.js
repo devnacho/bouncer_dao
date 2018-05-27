@@ -168,39 +168,30 @@ const ABI= [
 ]
 
 
-// web3.eth.blockNumber
-var ethers = require('ethers');
-var providers = ethers.providers;
 
-// Connect to a local Parity instance
-var provider = new providers.JsonRpcProvider('http://d4b08598.ngrok.io', 'testnet');
-// var Eth = require('ethjs')
-provider.getBlockNumber().then(function(blockNumber) {
-  console.log("Current block number: " + blockNumber);
-});
+// //TEST BED
 
+// // web3.eth.blockNumber
+// var ethers = require('ethers');
+// var providers = ethers.providers;
 
-
-
-// var abi = require('./lib/abi');
-var contract = new ethers.Contract('0x60FB9a848482b5cc09013474f01bcD2ca1D138A5', ABI, provider);
-var callPromise = contract.checkAccess('0x8401Eb5ff34cc943f096A32EF3d5113FEbE8D4Eb');
-
-callPromise.then(function(result) {
-  console.log('contract result:',result);
-});
-
-//     // this.web3 = new Web3.providers.HttpProvider('d4b08598.ngrok.io');
-// var Web3 = require('web3');
-// var web3 = new Web3(new Web3.providers.HttpProvider("http://d4b08598.ngrok.io:80"));
+// // Connect to a local Parity instance
+// var provider = new providers.JsonRpcProvider('http://d4b08598.ngrok.io', 'testnet');
+// // var Eth = require('ethjs')
+// provider.getBlockNumber().then(function(blockNumber) {
+//   console.log("Current block number: " + blockNumber);
+// });
 
 
-//     console.log(web3.currentProvider);
-//     var Eth = require('ethjs')
-//     var eth = new Eth(web3.currentProvider);
+// var contract = new ethers.Contract('0x60FB9a848482b5cc09013474f01bcD2ca1D138A5', ABI, provider);
+// var callPromise = contract.checkAccess('0x8401Eb5ff34cc943f096A32EF3d5113FEbE8D4Eb');
 
-//     console.log('blockNumber from web3',eth.blockNumber());
+// callPromise.then(function(result) {
+//   console.log('contract result:',result);
+// });
 
+
+// //END OF TEST
 
 
 
