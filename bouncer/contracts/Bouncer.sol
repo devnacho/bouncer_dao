@@ -46,7 +46,7 @@ contract Bouncer is AragonApp {
     }
 
     function revokeAccess(address incomingPerson) auth(REVOKE_ROLE) external {
-        // Require that the address is not allowed
+        // Require that the address is allowed
         require(accessAllowance[incomingPerson] == true);
 
         // Change mapping to revoke access
