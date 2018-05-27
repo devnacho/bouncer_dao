@@ -4,7 +4,8 @@ import {
     AppBar,
     Button,
     Text,
-    observe
+    observe,
+    Field
 } from '@aragon/ui'
 import Aragon, { providers } from '@aragon/client'
 import styled from 'styled-components'
@@ -41,8 +42,15 @@ class App extends React.Component {
     const { allowedAddresses } = this.props
     return (
         <AppContainer>
-            <h1 class="app-title">Bouncer</h1>
-            <h2 class="section-title">DAO Members physical access</h2>
+            <h1 className="app-title">Bouncer</h1>
+            <h2 className="section-title">DAO Members physical access</h2>
+            <div className="form">
+              <h2>Allow Access to New Address</h2>
+              <Field label="Enter name here:">
+                <input type="text" value={this.state.newAddress} onChange={this.handleNewAddress} />
+              </Field>
+              <Button mode="strong" onClick={ this.handleNewAddressSubmit }>Allow Access</Button>
+            </div>
             <table className="table">
                 <thead>
                     <th>Address</th>
@@ -61,9 +69,7 @@ class App extends React.Component {
                     )}
                 </tbody>
             </table>
-            <h2>Add New Address</h2>
-            <input type="text" value={this.state.newAddress} onChange={this.handleNewAddress} />
-            <button onClick={ this.handleNewAddressSubmit }>Add New Address</button>
+
 
         </AppContainer>
     )

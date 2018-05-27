@@ -35,3 +35,19 @@ table {
 .table tr td{
     padding: 10px;
 }
+
+.form {
+  padding: 20px;
+  border: 1px solid #dbe8ef;
+  margin-bottom: 30px;
+  background: #f2fbff;
+}
+
+.form input[type="text"]{
+  width: 500px;
+}
+
+.form h2 {
+  font-size: 23px;
+  margin-bottom: 12px;
+}
