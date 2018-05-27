@@ -12,11 +12,20 @@
 
   <h4>Eth Address:</h4>
   <b>{{identity ? identity.address : 'Creating Address'}}</b>
-
   <p>
     To access just tap on device.
     <!-- If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way. -->
   </p>
 
   <button ion-button color="primary" [disabled]="nfc.hasStarted" (click) ="startNFC()">{{!nfc.hasStarted ? 'Start NFC' : 'NFC Started'}}</button>
+
+
+  <div *ngIf="accessResult">
+    <h4>ACCESS OK</h4>
+  </div>
+
+  <div *ngIf="accessError">
+    <h4>YOU ARE NOT ALLOWED</h4>
+  </div>
+
 </ion-content>  
