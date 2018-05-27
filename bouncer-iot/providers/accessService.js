@@ -11,10 +11,10 @@ var myWeb3= require('../providers/myWeb3');
 
 exports.checkAccess= function(addr){
   return new Promise( (resolve, reject) =>{
-    myWeb3.myContractInstance.checkAccess(addr,{from: addr})
+    myWeb3.myContractInstance.checkAccess(addr)
     .then((result) => {
-      console.log(result);
-      resolve('OK')
+      console.log('result from checkAddress',result);
+      resolve(result);
 
       // let ethStr=myWeb3.web3.fromWei(result['blue'],'ether');
       // let ethStr2=myWeb3.web3.fromWei(result['red'],'ether');
