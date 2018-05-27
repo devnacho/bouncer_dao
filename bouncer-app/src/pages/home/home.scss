@@ -1,3 +1,53 @@
 page-home {
 
 }
+
+.root {
+  background: #eaf9ff;
+  color: white;
+  font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif;
+  background: #0e203e;
+  text-align: center;
+  font-weight: light;
+}
+
+.title {
+  margin: 10px 0 !important;
+  font-weight: 100;
+  font-size: 35px;
+  color: #7d93b9;
+}
+
+.waiting-img {
+  width: 50%;
+  margin: 35px auto;
+}
+
+.address-title {
+  font-weight: 300;
+  text-transform: uppercase;
+  color: #7d93b9;
+  font-size: 11px;
+  line-height: 16px;
+  letter-spacing: 2px;
+}
+.address {
+  letter-spacing: 2px;
+}
+.waiting-tip {
+  text-transform: uppercase;
+  color: #7d93b9;
+  font-size: 11px;
+  line-height: 16px;
+  letter-spacing: 2px;
+  margin-top: 30px;
+}
+
+.in-bg {
+  background: #4a940c;
+  color: white;
+}
+
+.out-bg {
+  background: #c11e1e;
+}

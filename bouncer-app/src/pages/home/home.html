@@ -1,31 +1,25 @@
-<ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Home</ion-title>
-  </ion-navbar>
-</ion-header>
+<ion-content padding class="root" [ngClass]="{'in-bg' : accessResult, 'out-bg':accessError}">
+  <div>
+    <h1 class="title">Bouncer DAO</h1>
+    <img class="waiting-img" src="assets/imgs/nfc.png">
 
-<ion-content padding>
-  <h3>DAE 4 DAO</h3>
+    <h4 class="address-title">Your Address ID is:</h4>
+    <span class="address">{{identity ? identity.address : 'Creating Address'}}</span>
+    <p class="waiting-tip">
+      To access the office just tap this device on the reader.
+    </p>
 
-  <h4>Eth Address:</h4>
-  <b>{{identity ? identity.address : 'Creating Address'}}</b>
-  <p>
-    To access just tap on device.
-    <!-- If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way. -->
-  </p>
+    <div *ngIf="!nfc.hasStarted">
+      <button ion-button color="primary" [disabled]="nfc.hasStarted" (click) ="startNFC()">Start NFC</button>
+    </div>
 
-  <button ion-button color="primary" [disabled]="nfc.hasStarted" (click) ="startNFC()">{{!nfc.hasStarted ? 'Start NFC' : 'NFC Started'}}</button>
+    <div *ngIf="accessResult">
+      <h4>Come on in!</h4>
+    </div>
 
-
-  <div *ngIf="accessResult">
-    <h4>ACCESS OK</h4>
+    <div *ngIf="accessError">
+      <h4>You can't enter my friend!</h4>
+    </div>
   </div>
 
-  <div *ngIf="accessError">
-    <h4>YOU ARE NOT ALLOWED</h4>
-  </div>
-
-</ion-content>  
+</ion-content>
