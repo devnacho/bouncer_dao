@@ -91,8 +91,13 @@ function initHttpApp() {
   ipcMain.on('asynchronous-message', (event, arg) => {
     if (appStatus !== undefined) {
       event.sender.send('asynchronous-reply', appStatus)
+      clearStatus();
     }
   })
+}
+
+function clearStatus(){
+      appStatus = undefined;
 }
 
 function createWindow () {
