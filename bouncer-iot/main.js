@@ -23,7 +23,8 @@ var expressApp = express();
 expressApp.use(bodyParser.urlencoded({ extended: false }));
 expressApp.use(bodyParser.json());
 
-let mainWindow
+let mainWindow;
+  let appStatus;
 
 function initApp() {
   initHttpApp()
@@ -31,7 +32,7 @@ function initApp() {
 }
 
 function initHttpApp() {
-  let appStatus
+
 
   expressApp.post('/', function (req, res) {
     console.log('got request');
@@ -84,21 +85,21 @@ function initHttpApp() {
     // res.send('Ok');
   });
 
+
+
   expressApp.listen(8000, function () {
     console.log('Example app listening on port 8000!');
   });
 
   ipcMain.on('asynchronous-message', (event, arg) => {
     if (appStatus !== undefined) {
+      console.log('responding message appStatus:',appStatus);
       event.sender.send('asynchronous-reply', appStatus)
-      clearStatus();
+    appStatus = undefined;
     }
   })
 }
 
-function clearStatus(){
-      appStatus = undefined;
-}
 
 function createWindow () {
   // Create the browser window.
