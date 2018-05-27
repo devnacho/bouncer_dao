@@ -2,12 +2,19 @@ const electron = require('electron')
 const http = require('http')
 const EthCrypto = require('eth-crypto');
 const {ipcMain} = require('electron')
+var config= require('./config');
 
 const BrowserWindow = electron.BrowserWindow
 const app = electron.app
 
+
+
 var express = require('express');
 var bodyParser = require("body-parser");
+
+var myWeb3= require('./providers/myWeb3');
+myWeb3.init(config.CONTRACT_ADDR,config.NODE_ADDR);
+
 var expressApp = express();
 expressApp.use(bodyParser.urlencoded({ extended: false }));
 expressApp.use(bodyParser.json());
