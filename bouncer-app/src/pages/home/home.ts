@@ -1,10 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, LoadingController, Loading } from 'ionic-angular';
 import { NfcProvider } from '../../providers/nfc/nfc';
-
 import { IotProvider } from '../../providers/iot/iot';
-
-// import { NFC, Ndef } from '@ionic-native/nfc';
 import EthCrypto from 'eth-crypto';
 
 @Component({
@@ -19,22 +16,17 @@ export class HomePage {
   accessResult:any;
   accessError:any;
 
- // 172.16.9.157
-
   identity: any;
   loading: Loading;
   isLoading:boolean=false;
 
   constructor(public navCtrl: NavController, private nfc: NfcProvider, private iot: IotProvider, private loadingCtrl:LoadingController) {
   	this.init();
-
   }
 
   showLoading(){
     if(!this.isLoading){
-             this.loading = this.loadingCtrl.create({
-      content: 'Checking Access...'
-  });
+      this.loading = this.loadingCtrl.create({content: 'Checking Access...'});
       this.loading.present();
       this.isLoading=true;
       this.accessResult=false;
@@ -49,32 +41,10 @@ export class HomePage {
 
   init(){
 
-
   	this.checkNFCEnabled();
     this.createWallet();
-    // this.testSign();
 
   }
-
-
-//   presentLoadingCustom() {
-//   let loading = this.loadingCtrl.create({
-//     spinner: 'hide',
-//     content: `
-//       <div class="custom-spinner-container">
-//         <div class="custom-spinner-box"></div>
-//       </div>`,
-//     duration: 5000
-//   });
-
-//   loading.onDidDismiss(() => {
-//     console.log('Dismissed loading');
-//   });
-
-//   loading.present();
-// }
-
-
 
 
   createWallet(){
@@ -101,7 +71,7 @@ export class HomePage {
       this.startNFC();
     })
     .catch((err)=>{
-		// alert("error"+err);
+
 		if(err=='NFC_DISABLED'){
 			alert("please enable NFC");
 			that.nfc.showSettings();
@@ -144,14 +114,8 @@ export class HomePage {
 
     const messageHash = EthCrypto.hash.keccak256(data.message);
     data.signature=this.signMsg(messageHash);
-    // data['deviceIP']=deviceIP;
-    // data['signature']=signature;
-    // data['address']=this.identity.address;
-    // data['message']=message;
-    // alert('making request to'+deviceIP);
     this.iot.requestAccess(deviceIP,data)
     .then((data)=> {
-        // this.loading.dismiss();
         that.dismissLoading();
         that.accessResult=true;
         // alert('access OK:'+data);
@@ -165,14 +129,8 @@ export class HomePage {
 
 
   signMsg(msg){
-    return EthCrypto.sign(this.identity.privateKey, // privateKey
-      msg // hash of message
-      );
+    return EthCrypto.sign(this.identity.privateKey, msg);
   }
-
-  // testSign() {
-  //   this.requestAccess('172.16.8.176:8000');
-  // }
 
 
 }

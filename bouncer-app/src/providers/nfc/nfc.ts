@@ -27,46 +27,34 @@ import { Observable } from 'rxjs/Observable';
   	}
 
 
-  	start(): Observable<any>{
-  		  	let that=this;
-  		  	return that.nfc.addNdefListener();
-  	// 	return Observable.create(observer => {
-   //  		that.nfc.addNdefListener(() => {
-		 //    	console.log('successfully attached ndef listener');
-		 //    	observer.next(this);
-		 //    }, (err) => {
-		 //    	observer.error(err);
-		 //    });
-  	// });
-  	}
+  	// start(): Observable<any>{
+  	// 	  	let that=this;
+  	// 	  	return that.nfc.addNdefListener();
+  	// }
 
   	listen(): Observable<any>{
+      let that=this;
+      return Observable.create(observer => {
+        that.nfc.addNdefListener(() => {
+          that.hasStarted=true;
+          console.log('successfully attached ndef listener');
+        }, (err) => {
+          observer.error(err);
+        }).subscribe((event) => {
 
-  	    // alert('starting NFC');
-    	// this.nfc.addTagDiscoveredListener(() => {
-    	let that=this;
-    	  return Observable.create(observer => {
-    		that.nfc.addNdefListener(() => {
-    			that.hasStarted=true;
-		    	console.log('successfully attached ndef listener');
-		    	// _onStart();
-		    }, (err) => {
-		    	observer.error(err);
-		    }).subscribe((event) => {
+          console.log('received ndef message. the tag contains: ', event.tag);
+          console.log('decoded tag id', that.nfc.bytesToHexString(event.tag.id));
 
-		    	console.log('received ndef message. the tag contains: ', event.tag);
-		    	console.log('decoded tag id', that.nfc.bytesToHexString(event.tag.id));
+          let payload = event.tag.ndefMessage[0]["payload"];
+          let stringPayload = that.nfc.bytesToString(payload);
 
-		    	let payload = event.tag.ndefMessage[0]["payload"];
-		    	let stringPayload = that.nfc.bytesToString(payload);
-
-		    	observer.next(stringPayload);
-		    });
-		});
+          observer.next(stringPayload);
+        });
+      });
 
 
-}
     }
+  }
 
 
 

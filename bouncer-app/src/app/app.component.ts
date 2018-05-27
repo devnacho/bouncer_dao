@@ -21,11 +21,6 @@ export class MyApp {
 
   pages: Array<{title: string, component: any}>;
 
-  // myEth: EthCrypto;
-
-
-
-
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
     this.initializeApp();
@@ -44,12 +39,6 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-
-
-      // this.testSign();
-      // this.readNFC();
-      // this.startHCE();
-
     });
   }
   openPage(page) {
