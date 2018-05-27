@@ -35,7 +35,7 @@ function initHttpApp() {
 
   expressApp.post('/', function (req, res) {
     console.log('got request');
-    console.log(req);
+    // console.log(req);
     let signature = req.body.signature
     let address = req.body.address
     let message = req.body.message
@@ -46,16 +46,25 @@ function initHttpApp() {
     );
 
     if (signer == address) {
-      // validated signature matched
-      // ask smart contract for access permissions
       console.log("Signature validated!")
-      appStatus = {
-        allowed: true,
-        msg: 'Allowed'
-      }
 
-      responseService.respond( accessService.checkAccess(address),res);
+      accessService.checkAccess(address)
+      .then((data)=>{
+        responseService.respond( ok,res);
+        appStatus = {
+          allowed: true,
+          msg: 'Allowed'
+        }
 
+
+      })
+      .catch((err)=>{
+          responseService.error( err,res);
+          appStatus = {
+          allowed: false,
+          msg: 'Not on blockchain'
+        }
+      });
     } 
 
 
@@ -65,6 +74,8 @@ function initHttpApp() {
         allowed: false,
         msg: 'Signature validation failed'
       }
+   
+      responseService.error( err,res);
     }
 
    

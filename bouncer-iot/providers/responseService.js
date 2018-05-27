@@ -1,16 +1,12 @@
 'use strict';
 
-exports.respond= function(promise,res){	
-	promise
-	.then((data) => {
+exports.respond= function(data,res){	
 		console.log(data);
 		res.send(data)
+}
 
-	})
-	.catch((err) => {
-		console.log('err',err)
+exports.error= function(err,res){	
 		res.status(501);
 		res.send(err)
-  });
-}
+  }
 
