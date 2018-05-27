@@ -49,7 +49,7 @@ export default class App extends React.Component {
                     <th>Access</th>
                 </thead>
                 <tbody>
-                    <ObservedAddresses observable={this.props.observable} />
+                    <ObservedAddresses foo="bar" observable={this.props.observable} />
                 </tbody>
             </table>
             <h2>Add New Address</h2>
@@ -78,10 +78,11 @@ const ObservedAddresses = observe(
         allowedAddresses.map((address, i) =>
             <tr>
                 <td>
+                    { this.props.foo }
                     { address }
                 </td>
                 <td>
-                    <Button onClick={() => this.handleRevokeAccess(address) } mode="outline">Revoke Access</Button>
+                    <Button mode="outline">Revoke Access</Button>
                 </td>
             </tr>
         )
