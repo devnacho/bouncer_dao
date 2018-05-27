@@ -12,7 +12,7 @@ import styled from 'styled-components'
 const AppContainer = styled(AragonApp)`
   padding: 30px;
 `
-export default class App extends React.Component {
+class App extends React.Component {
   constructor(props) {
       super(props);
       this.state = {
@@ -20,7 +20,7 @@ export default class App extends React.Component {
       };
       this.handleNewAddress = this.handleNewAddress.bind(this);
       this.handleNewAddressSubmit = this.handleNewAddressSubmit.bind(this);
-      this.handleRevokeAccess = this.handleNewAddressSubmit.bind(this);
+      this.handleRevokeAccess = this.handleRevokeAccess.bind(this);
   }
 
 
@@ -38,6 +38,7 @@ export default class App extends React.Component {
   }
 
   render () {
+    const { allowedAddresses } = this.props
     return (
         <AppContainer>
             <h1 class="app-title">Bouncer</h1>
@@ -48,7 +49,16 @@ export default class App extends React.Component {
                     <th>Access</th>
                 </thead>
                 <tbody>
-                    <ObservedAddresses observable={this.props.observable} />
+                    {allowedAddresses.map((address, i) =>
+                        <tr>
+                            <td>
+                                { address }
+                            </td>
+                            <td>
+                                <Button onClick={ () => this.handleRevokeAccess(address) } mode="outline">Revoke Access</Button>
+                            </td>
+                        </tr>
+                    )}
                 </tbody>
             </table>
             <h2>Add New Address</h2>
@@ -67,21 +77,9 @@ export default class App extends React.Component {
   }
 }
 
-
-const ObservedAddresses = observe(
+const ObservedApp = observe(
     (state$) => state$,
     { allowedAddresses: [] }
-  )(
-    ({ allowedAddresses }) =>
+)(App)
 
-        allowedAddresses.map((address, i) =>
-            <tr>
-                <td>
-                    { address }
-                </td>
-                <td>
-                    <Button mode="outline">Revoke Access</Button>
-                </td>
-            </tr>
-        )
-)
+export default ObservedApp
