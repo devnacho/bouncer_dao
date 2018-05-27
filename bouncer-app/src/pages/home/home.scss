@@ -12,10 +12,11 @@ page-home {
 }
 
 .title {
-  margin: 10px 0 !important;
+  margin: 30px 0 10px !important;
   font-weight: 100;
   font-size: 35px;
   color: #7d93b9;
+
 }
 
 .waiting-img {
@@ -50,4 +51,10 @@ page-home {
 
 .out-bg {
   background: #c11e1e;
+}
+
+.result-title {
+  font-size: 50px;
+  font-weight: 100;
+  margin: 170px auto;
 }

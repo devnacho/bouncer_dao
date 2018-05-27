@@ -1,24 +1,27 @@
 <ion-content padding class="root" [ngClass]="{'in-bg' : accessResult, 'out-bg':accessError}">
   <div>
-    <h1 class="title">Bouncer DAO</h1>
-    <img class="waiting-img" src="assets/imgs/nfc.png">
+    <div *ngIf="(!accessResult || !accessError)">
+      <h1 class="title">Bouncer DAO</h1>
+      <img class="waiting-img" src="assets/imgs/nfc.png">
 
-    <h4 class="address-title">Your Address ID is:</h4>
-    <span class="address">{{identity ? identity.address : 'Creating Address'}}</span>
-    <p class="waiting-tip">
-      To access the office just tap this device on the reader.
-    </p>
+      <h4 class="address-title">Your Address ID is:</h4>
+      <span class="address">{{identity ? identity.address : 'Creating Address'}}</span>
+      <p class="waiting-tip">
+        To access the office just tap this device on the reader.
+      </p>
 
-    <div *ngIf="!nfc.hasStarted">
-      <button ion-button color="primary" [disabled]="nfc.hasStarted" (click) ="startNFC()">Start NFC</button>
+      <div *ngIf="!nfc.hasStarted">
+        <button ion-button color="primary" [disabled]="nfc.hasStarted" (click) ="startNFC()">Start NFC</button>
+      </div>
     </div>
 
+
     <div *ngIf="accessResult">
-      <h4>Come on in!</h4>
+      <h4 class="result-title">Come on in!</h4>
     </div>
 
     <div *ngIf="accessError">
-      <h4>You can't enter my friend!</h4>
+      <h4 class="result-title">You can't enter my friend!</h4>
     </div>
   </div>
 
