@@ -34,7 +34,7 @@ class App extends React.Component {
 
   handleRevokeAccess(addressToRevoke) {
     console.log("revoke", addressToRevoke);
-    this.props.app.giveAccess(addressToRevoke);
+    this.props.app.revokeAccess(addressToRevoke);
   }
 
   render () {
