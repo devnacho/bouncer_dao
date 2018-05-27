@@ -9,9 +9,9 @@ var myWeb3= require('../providers/myWeb3');
     // }
 
 
-exports.getAccess= function(addr){
+exports.checkAccess= function(addr){
   return new Promise( (resolve, reject) =>{
-    myWeb3.myContractInstance.checkAccess(team,{from: addr})
+    myWeb3.myContractInstance.checkAccess({from: addr})
     .then((result) => {
       resolve('OK')
 

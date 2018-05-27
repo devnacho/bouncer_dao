@@ -8,6 +8,10 @@ const BrowserWindow = electron.BrowserWindow
 const app = electron.app
 
 
+var accessService = require('./providers/accessService');
+var responseService = require('./providers/responseService');
+
+
 
 var express = require('express');
 var bodyParser = require("body-parser");
@@ -30,6 +34,8 @@ function initHttpApp() {
   let appStatus
 
   expressApp.post('/', function (req, res) {
+    console.log('got request');
+    console.log(req);
     let signature = req.body.signature
     let address = req.body.address
     let message = req.body.message
@@ -47,18 +53,28 @@ function initHttpApp() {
         allowed: true,
         msg: 'Allowed'
       }
-    } else {
+
+      responseService.respond( accessService.checkAccess(address),res);
+
+    } 
+
+
+    else {
       // signature validation failed
       appStatus = {
         allowed: false,
         msg: 'Signature validation failed'
       }
     }
-    res.send('Ok');
+
+   
+
+
+    // res.send('Ok');
   });
 
-  expressApp.listen(8888, function () {
-    console.log('Example app listening on port 8888!');
+  expressApp.listen(8000, function () {
+    console.log('Example app listening on port 8000!');
   });
 
   ipcMain.on('asynchronous-message', (event, arg) => {
