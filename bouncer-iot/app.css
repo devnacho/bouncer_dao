@@ -1,5 +1,4 @@
 body {
-    background: #eaf9ff;
     font-size: 82px;
     font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif;
     text-align: center;
@@ -12,6 +11,13 @@ body {
     padding: 0 30px;
     font-weight: 100;
     margin: 0;
+}
+
+.bouncer-img {
+  width: 26%;
+}
+.waiting-message .status {
+  margin-top: 35px;
 }
 
 #in-message, #out-message {
