@@ -3,38 +3,45 @@
   <head>
     <meta charset="UTF-8">
     <title>Electron Hello World!</title>
+    <link rel="stylesheet" type="text/css" href="app.css"/>
   </head>
   <body>
-    <h1>Electron Hello World!</h1>
-    We are using node <script>document.write(process.versions.node)</script>,
-    Chromium <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
-
-    <p id="status">Waiting device...</p>
-
+      <div id="waiting-message">
+          <p id="status">Please Tap Your Phone</p>
+          <p class="tip">hint: open Bouncer mobile app and tap your phone here</p>
+      </div>
+      <div id="in-message">
+          <p id="status">Come on In!</p>
+      </div>
+      <div id="out-message">
+          <p id="status">You can't enter my friend!</p>
+      </div>
     <script type="text/javascript">
-      const {ipcRenderer} = require('electron')
-      const $ = require('jQuery');
+     const {ipcRenderer} = require('electron')
+     const $ = require('jQuery');
 
-      let interval;
-      $(document).ready(function() {
-        interval = setInterval(function(){
-          ipcRenderer.send('asynchronous-message', 'ping');
-        }, 1000);
-      })
+     let interval;
+     $(document).ready(function() {
+         interval = setInterval(function(){
+             ipcRenderer.send('asynchronous-message', 'ping');
+         }, 1000);
+     })
 
-      ipcRenderer.on('asynchronous-reply', (event, arg) => {
-        console.log('Msg response received: ' + arg.allowed)
-        clearInterval(interval)
+     ipcRenderer.on('asynchronous-reply', (event, arg) => {
+         console.log('Msg response received: ' + arg.allowed)
+         clearInterval(interval)
 
-        // update UI
-        if (arg.allowed) {
-          statusMsg = "You are in!"
-        } else {
-          statusMsg = "Sorry, you are bounced ;'("
-        }
-        $("#status").text(statusMsg)
-      })
+         // update UI
+         if (arg.allowed) {
+             $('#waiting-message').hide()
+             $('body').addClass('in-bg')
+             $('#in-message').show()
+         } else {
+             $('#waiting-message').hide()
+             $('body').addClass('out-bg')
+             $('#out-message').show()
+         }
+     })
     </script>
   </body>
 </html>
