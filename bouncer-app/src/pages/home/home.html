@@ -1,6 +1,6 @@
 <ion-content padding class="root" [ngClass]="{'in-bg' : accessResult, 'out-bg':accessError}">
   <div>
-    <div *ngIf="(!accessResult || !accessError)">
+    <div *ngIf="(!accessResult && !accessError)">
       <h1 class="title">Bouncer DAO</h1>
       <img class="waiting-img" src="assets/imgs/nfc.png">
 
