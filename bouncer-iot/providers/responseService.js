@@ -2,6 +2,7 @@
 
 exports.respond= function(data,res){	
 		console.log(data);
+		res.status(200);
 		res.send(data)
 }
 
