@@ -123,7 +123,8 @@ export class HomePage {
     .catch((err)=>{
         that.dismissLoading();
         that.accessError=true;
-        alert('err:'+err);
+        console.log('err',err);
+        // alert('err:'+err);
     })
   }
 
